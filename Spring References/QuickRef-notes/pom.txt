@@ -1,0 +1,37 @@
+*****************SPRING CLOUD*******************************************************************************************
+CONFIG SERVER
+	<dependency> 
+         <groupId>org.springframework.cloud</groupId> 
+         <artifactId>spring-cloud-config-server</artifactId> 
+   </dependency> 
+
+EUREKA SERVER
+	 <dependency> 
+         <groupId>org.springframework.cloud</groupId> 
+         <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId> 
+   </dependency> 
+
+EUREKA CLIENT
+	<dependency> 
+         <groupId>org.springframework.cloud</groupId> 
+         <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> 
+   </dependency> 
+
+RIBBON
+	<dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+	</dependency>
+
+FEIGN CLIENT
+	<dependency> 
+         <groupId>org.springframework.cloud</groupId> 
+         <artifactId>spring-cloud-starter-openfeign</artifactId> 
+   </dependency> 
+
+ZOOL PROXY
+	<dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+	</dependency>
+

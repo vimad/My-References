@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>059 Command Summary resource Default text editor for Git</title>
+</head>
+<body>
+<div class="asset-container">
+    <div class="asset-container__padding article-view">
+        <div class="w3c-default">
+            <h4>Installing and Configuring text editor (Sublime Text) for Git on Windows</h4><p><code># Specifying -w will cause the subl command to not exit until the file is closed<br>$ git config --global core.editor "'c:/program files/sublime text 3/subl.exe' -w"<code></code></code></p><p><br></p><h4>Installing and Configuring text editor (Sublime Text) for Git on Linux</h4><p><code># extract downloaded file - you can use "tar --help"...CONTD<br># to see the meaning of the options "xvzf"<br>$ tar vxjf "sublime_text_3_build_3059_x32.tar.bz2"<br>  <br># It is common to locate 3rd-party applications in..CONTD<br># the /opt/ directory, so move the extracted files there<br>$ sudo mv sublime_text_3 /opt/<br>  <br># make a Bash script which will allow us to execute..CONTD<br># Sublime Text 3 with a simple command<br>$ cd /opt/sublime_text_3 <br>  <br># create file subl ; vim is improved vi<br>$ vim subl<br>  <br># add these 2 code lines to file subl<br># see below *** for command meaning<br>#!/bin/sh<br>exec /opt/sublime_text_3/sublime_text "$@"<br>  <br># This allows anyone to read or execute the script, but only the owner can write to it.<br>$ sudo chmod 755 subl<br>  <br># moving to /usr/bin<br># This is the primary directory of executable commands on the system.<br>$ sudo mv subl /usr/bin/<br>  <br># Specifying -w will cause the subl command to not exit until the file is closed<br>$ git config --global core.editor "subl -w"<br>  <br># test to see whether sublime text is the default editor now<br>$ git config --global --edit</code></p><br><p><br></p><p><br></p><h4>Installing and Configuring text editor (Sublime Text) for Git on Mac</h4><p><code></code></p><p><code># Create the symlink<br>$ ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl</code></p><code>
+
+<p># # test to see whether sublime text is the default editor now<br>$ git config --global core.editor "subl -n -w"</p></code><p>** CONTD : means "continued"</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

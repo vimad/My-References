@@ -1,0 +1,132 @@
+******************EUREKA SERVE PROPERTIES**********************
+server: 
+  port: 8761 
+ 
+eureka: 
+  instance: 
+    hostname: localhost 
+  client: 
+    registerWithEureka: false 
+    fetchRegistry: false 
+    serviceUrl: 
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+
+
+
+***************EUREKA CLIENT PROPERTIES**************************
+spring: 
+  application: 
+    name: spring-cloud-eureka-client 
+ 
+server: 
+  port: 80 
+ 
+eureka: 
+  client: 
+    serviceUrl: 
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka} 
+  instance: 
+    preferIpAddress: true
+    //************************************THE FOLLOWINGS ARE TO SETUP URLS INSIDE THE INSTANCE 
+    status-page-url-path: https://${eureka.instance.hostName}/info 
+    health-check-url: https://${eureka.instance.hostName}/health 
+    home-page-url: https://${eureka.instance.hostName}/
+
+
+
+*******************************REST TEMPLATE*********************************************
+@LoadBalanced     
+@Bean 
+RestTemplate restTemplate() { 
+    return new RestTemplate(); 
+}
+
+EXAMPLE
+Map<String, String> uriVariables = new HashMap<>();
+uriVariables.put("from", from);
+uriVariables.put("to", to);
+
+ResponseEntity<CurrencyConversionBean> responseEntity = new RestTemplate().getForEntity(
+		"http://localhost:8000/currency-exchange/from/{from}/to/{to}", CurrencyConversionBean.class,
+		uriVariables);
+
+CurrencyConversionBean response = responseEntity.getBody();
+
+
+
+*******************************FEIGN CLIENT EXAMPLE*************************
+//@FeignClient(name="currency-exchange-service", url="localhost:8000")
+@FeignClient(name="currency-exchange-service")
+@RibbonClient(name="currency-exchange-service", configuration = RibbonConfig.class)
+public interface CurrencyExchangeServiceProxy {
+
+	@GetMapping("/currency-exchange/from/{from}/to/{to}")
+	public CurrencyConversionBean retrieveExchangeValue(@PathVariable("from") String from, @PathVariable("to") String to);
+}
+
+
+
+****************************************ZUUL PROXY**********************************
+spring:
+  application:
+    name: API-GATEWAY
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+
+zuul:
+  ignoredServices: '*'
+  prefix: /api
+  routes:
+    account-service:
+       path: /accounts/**
+       serviceId: ACCOUNT-SERVICE
+    customer-service:
+       path: /customers/**
+       serviceId: CUSTOMER-SERVICE
+  host:
+    socket-timeout-millis: 30000  
+
+HERE 83, 85,86,87,88 for all services ignored except account-service
+HERE 84 for add common prefix for urls
+EXAMPLE:
+so for ecample if run http://localhost:8080/api/accounts/account/100 it redirects to
+http://localhost:6060/account/100 , here 6060 is the api gateway port
+
+***To add zuul filters extend ZuulFilter and overide the methods
+Beans require at filtering (in main class(configuration class)) need to implemet this class with extending ZuulFilter 
+	@Bean
+	public PreFilter preFilter() {
+		return new PreFilter();
+	}
+
+	@Bean
+	public PostFilter postFilter() {
+		return new PostFilter();
+	}
+
+	@Bean
+	public ErrorFilter errorFilter() {
+		return new ErrorFilter();
+	}
+
+	@Bean
+	public RouteFilter routeFilter() {
+		return new RouteFilter();
+	}
+
+
+
+****************************************************************************
+@EnableEurekaServer - enable server
+@EnableDiscoveryClient or @EnableEurekaClient - enable client
+@EnableZuulProxy - enable zuul proxy
+

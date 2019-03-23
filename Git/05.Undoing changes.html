@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>040 Command Summary Undoing changes in a Git repository</title>
+</head>
+<body>
+<div class="asset-container">
+    <div class="asset-container__padding article-view">
+        <div class="w3c-default">
+            <p><strong class="redactor-inline-converted">LECTURE - Checking out commits in a Git repository - Part 1</strong><br><br></p>
+
+<pre class="prettyprint linenums">$ cd git-fast
+# created a fresh git repository named "demo-checkout-commit" using initializr.zip
+# Build up a commit history by modifying the file robots.txt, say 5 times and committing each time
+# Let us assume we have one commit whose id/hash is 91770af
+# the choice of commit id 91770af is arbitrary
+
+# note where the HEAD is now (since HEAD will change later while doing a checkout)
+$ git log --oneline
+
+# clear the screen
+# The command below will put you in a detached HEAD state.
+# HEAD no longer points to a branch; it points directly to a commit.
+$ git checkout 91770af</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p><br></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>LECTURE - Checking out commits in a Git repository - Part 2</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<pre class="prettyprint linenums"># you are in detached HEAD state and inside git repository (demo-checkout-commit)
+# You can see only commits till commit-id 91770af
+$ git log --oneline
+
+# now edit and do a express commit for file robots.txt
+# note down your new commit id/hash (Say ID1)
+$ git log --oneline
+
+$ git checkout master
+
+# changes made in detached HEAD state is no more there
+# the new commit ID1 is not visible
+$ git log --oneline
+
+# again you are in detached HEAD state
+$ git checkout 91770af
+
+# the new commit ID1 is not visible which means earlier changes...
+# in detached HEAD state were not preserved
+$ git log --oneline
+
+# now we want to retain our commit i.e, preserve our changes
+# make changes in the robots.txt and do an express commit
+
+# create a branch named weird-experiment
+$ git branch  weird-experiment
+
+$ git checkout master
+# the new commit id is not visible here
+# you can check the file robots.txt using cat command also
+$ git log --oneline
+
+# new commit id is visible now
+# you can examine the file robots.txt using cat command
+$ git checkout weird-experiment
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p><br></p>
+
+
+
+
+
+
+
+
+
+
+
+<p><strong class="redactor-inline-converted">LECTURE - Checking out files
+</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<pre class="prettyprint linenums"># cd to git repository (demo-checkout-commit) used in previous lecture
+$ git log --online
+
+# Let us assume we have the commit-id 91770af
+
+# step-2: examine the current contents of the file
+$ cat robots.txt
+
+# now we will able to see the content of the file as at commit-id 91770af
+$ git checkout 91770af robots.txt
+
+# this will show the file has been added to staging area
+$ git status
+
+# step-5: examine the contents of the file (should be different from step-2)
+$ cat robots.txt
+
+# if we do not want to revert back the file robots.txt
+$ git checkout HEAD robots.txt
+
+# you will see a clean working directory
+$ git status
+
+# now we want to revert back to previous version of robots.txt as at commit-id 91770af
+$ git checkout 91770af robots.txt
+$ git commit -am "reverting back file state to commit 91770af"
+
+# clean working directory
+$ git status
+
+
+# file is reverted and the contents are as seen in step-5
+$ cat robots.txt  
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p><br></p>
+
+
+
+
+
+
+
+
+
+
+
+<p><strong class="redactor-inline-converted">LECTURE - Reverting changes</strong><br></p>
+
+
+
+
+
+
+
+
+
+
+
+<pre class="prettyprint linenums"># cd into repository "undo-demo-git-repo"
+
+# add the text say, "line 5"
+$ vim checkoutfile.txt
+
+# modified stage visible
+$ git status
+
+# commit the above change
+$ git commit -am checkoutfile.txt "commit message..."
+
+$ git log --oneline
+$ cat checkoutfile.txt
+
+# Now let's assume the earlier commit is a buggy one and so we will revert it
+# revert command introduces a new commit in a safe manner (opens the default editor)
+$ git revert HEAD
+
+# check commit history - a new commit for revert
+$ git log --oneline
+
+# note the change made earlier has been reverted "line 5" is not visible
+$ cat checkoutfile.txt</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p><br></p>
+
+
+
+
+
+
+
+
+
+
+
+<p><strong class="redactor-inline-converted">LECTURE - Resetting Git repository - Part1</strong><br></p>
+
+
+
+
+
+
+
+
+
+
+
+<pre class="prettyprint linenums"># we are in repository git-reset-demo-1 with 2 files goldies-time-table and jimmys-time-table
+# the repository has an existing commit history
+
+# now edit file jimmys-time-table and add a line at the end
+$ vim jimmys-time-table
+
+# add the change to staging area
+$ git add jimmys-time-table
+
+# change in staging area is visible
+$ git status
+
+# undoes changes in staging area
+$ git reset jimmys-time-table
+
+# changes in staging area is removed; file in modified state
+$ git status
+
+# the changed in working directory is intact
+$ cat jimmys-time-table</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p><br></p>
+
+
+
+
+
+
+
+
+
+<p><strong class="redactor-inline-converted">LECTURE - Resetting Git repository - Part2</strong><br></p>
+
+
+
+
+
+
+
+
+
+<pre class="prettyprint linenums"># we are in repository git-reset-demo-2 (this repo is clone of git-reset-demo-1)
+
+# edit file and add one line at the end
+$ vim jimmys-time-table
+
+# edit file and add one line at the end
+$ vim goldies-time-table
+
+# files are in modified state
+$ git status
+
+# add both files to staging area
+$ git add .
+
+# changes visible in staging area
+$ git status
+
+# "reset" command removes changes in staging area leaving the working directory intact
+$ git reset
+
+# both files in modified state
+$ git status
+
+#######################################
+# git reset demo using the --hard option
+# we are still in git-reset-demo-2 repository(this repo is clone of git-reset-demo-1)
+
+# files are in modified state
+$ git status
+
+# add both files to staging area
+$ git add .
+
+# changes visible in staging area
+$ git status
+
+# --hard option removes all changes in working directory and staging area
+$ git reset --hard
+
+# the working directory is clean since all changes have been reset in working dir and staging
+$ git status</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p><br></p>
+
+
+
+
+
+
+
+<p><strong class="redactor-inline-converted">LECTURE - Resetting Git repository - Part3</strong><br></p>
+
+
+
+
+
+
+
+<pre class="prettyprint linenums"># we are inside git-reset-demo-4 repository (this repo is clone of git-reset-demo-1)
+
+# Let's say, we have 5 commits in the commit history
+# let' say, the 5th commit-id (HEAD) is 9166e4f and 4th commit-id is d21a539
+$ git log --oneline
+
+# let's reset the repository to 4th commit-id
+$ git reset d21a539
+
+# the 5th commit-id(9166e4f) has been removed from history and the HEAD is now at d21a539
+$ git log --oneline
+
+# the files are in modified state and changes in staging area has been removed
+# the files are jimmys-time-table and goldies-time-table
+$ git status
+
+# now we will commit the above changes in working dir in 2 smaller chunks
+$ git add jimmys-time-table
+$ git commit -m "commit message....."
+
+# now only goldies-time-table changes are visible in modified state
+$ git status
+
+$ git add goldies-time-table
+$ git commit -m "commit message....."
+
+# clean working directory
+$ git status
+
+$ git log --oneline
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p><br></p>
+
+
+
+
+
+<pre class="prettyprint linenums"># we are in git-reset-demo-5 repository (this repo is clone of git-reset-demo-1)
+
+# let's say there are 5 commits
+$ git log --oneline
+
+# now we will reset to the 3rd commit-id a53f51c (2 commits before HEAD) with the --hard option
+# this command will remove 4th &amp; 5th commit-ids as well removed all changes in working dir and staging area
+$ git reset --hard a53f51c
+
+# the 4th and 5th commit-ids has been removed from history
+$ git log --oneline
+
+# examine the file contents to confirm things
+# the lines pertaining to 4th and 5th commit-ids has been removed
+$ cat goldies-time-table
+$ cat jimmys-time-table</pre>
+
+
+
+
+
+
+
+<p><br></p>
+
+
+
+<p><strong>LECTURE - Cleaning Git repository</strong><br></p>
+
+
+
+<pre class="prettyprint linenums">$ cd git-fast
+$ mkdir git-clean-demo
+$ cd git-clean-demo
+
+# create an empty repository
+$ git init
+
+# create few empty files
+$ touch clean-demo-file
+$ touch clean-demo-tracked-file
+
+$ git add clean-demo-tracked-file
+$ git commit -m "commit tracked file"
+
+# shows clean-demo-file as an untracked file
+$ git status
+
+# -n option allows to make a dry run of "git clean" command
+$ git clean -n
+
+#################################################
+
+# -f option (-f means force) removes untracked files from current directory
+# so this will remove clean-demo-file
+$ git clean -f
+
+#################################################
+
+$ mkdir clean-demo-dir
+$ cd clean-demo-dir
+
+# create an untracked file
+$ touch clean-demofile-2
+
+$ cd ..
+
+# removes untracked file in path clean-demo-dir
+$ git clean -f clean-demo-dir/
+
+#confirm untracked file cleaning
+$ cd clean-demo-dir
+
+# "ls" produces no results meaning the untracked file was cleaned
+$ ls
+
+#################################################
+$ cd ..
+$ ls
+$ touch clean-demo-file-2
+$ ls
+
+# -df option cleans both untracked files and directories
+$ git clean -df
+$ ls
+
+#################################################
+# create .gitignore file and add the file name "clean-demo-file-5"
+$ vim .gitignore
+$ git add .gitignore
+$ git commit -m "committing .gitignore file"
+
+$ touch clean-demo-file-4
+$ touch clean-demo-file-5
+$ ls -al
+
+# -xf option cleans all untracked files including those mentioned in .gitignore file
+$ git clean -xf
+
+$ ls</pre>
+
+
+
+
+
+
+
+<p><br></p>
+
+
+
+
+
+<p><br></p>
+
+
+
+
+
+<p><br></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

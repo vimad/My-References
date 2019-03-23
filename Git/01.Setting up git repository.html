@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>017 Git Command Summary resource setting up a Git Repository</title>
+</head>
+<body>
+<div class="asset-container">
+    <div class="asset-container__padding article-view">
+        <div class="w3c-default">
+            <h4></h4>
+
+<p><strong class="redactor-inline-converted">Configuring author and email<br></strong></p>
+
+<p># home directory<br>$ pwd                                                            <br>$ mkdir git-fast            <br>$ cd git-fast<br>$ pwd    <br>$ git config --global --list     <br>$ git config --global user.name "Bibhash Roy"<br>$ git config --global --list<br>$ git config --global user.email "bibhash@whitepeaksoft.com"<br>$ git config --global --list</p>
+
+<p># vi is the editor, ~ is the home directory<br>$ vi ~/.gitconfig                                                <br>$ cat .gitconfig</p>
+
+<p><br></p>
+
+<p><br></p>
+
+
+
+<p><strong class="redactor-inline-converted">Initializing an empty repository</strong></p>
+
+
+
+<p>$ pwd<br>$ mkdir myRepoFromScratch<br>$ cd myRepoFromScratch<br>$ pwd         <br>   <br># notice the creation of .git directory                        <br>$ git init   <br>                       <br># "ls -al" command lists all objects, including hidden                                             <br>$ ls -al  <br>      <br># without using any editor                                                                 <br>$ echo "this is my first file in empty repository" &gt;&gt; firstFileUsingEcho.txt     <br>$ ls<br>$ cat firstFileUsingEcho.txt</p>
+
+
+
+<p> # create the file and enter some contents<br>$ vi  secondFileUsingVI.txt                                        <br>$ ls<br>$ cat secondFileUsingVI.txt</p>
+
+<p><br></p>
+
+<p><br></p>
+
+
+
+<p><strong class="redactor-inline-converted">Existing unversioned project to repository</strong></p>
+
+
+
+<p>$ pwd</p>
+
+
+
+<p> # copy the downloaded file<br>$ cp /f/Bibhash/Downloads/initializr-verekia-4.0.zip . </p>
+
+
+
+<p># unzipping will create a folder called "initilizr"     <br>$ unzip initializr-verekia-4.0.zip                                        <br>$ ls -al</p>
+
+
+
+<p># remove copied file<br>$ rm initializr-verekia-4.0.zip  </p>
+
+
+
+<p># rename directory                                          <br>$ mv initializr/ myRepoFromExistingSource    <br>              <br># now we need to add source control to the unversioned repo "myRepoFromExistingSource"<br>$ cd myRepoFromExistingSource  <br>         <br># Initialized existing source                        <br>$ git init            </p>
+
+
+
+<p># .git folder can be seen with ls -al                                                               <br>$ ls -al          </p>
+
+
+
+<p>                                                                <br></p>
+
+
+
+<p><strong class="redactor-inline-converted">Command Summary - configuration &amp; repository creation </strong><br># Typically, you’ll want to use the --global flag to set configuration options for the current user. <br># Define the author name to be used for all commits by the current user.<br>$ git config --global user.name &lt;name&gt;    </p>
+
+
+
+<p># Define the author email to be used for all commits by the current user.<br>$ git config --global user.email &lt;email&gt;   </p>
+
+
+
+<p># For listing all the global configuration at user level<br>$ git config --global --list          <br>   <br># Transforms the current directory into a Git repository; the command is same for creating repo from ..contd..<br># scratch or convert an existing unversioned code base to a git repository             <br>$ git init                                                    </p>
+
+<p><strong>Command Summary - Accessing Git Help system</strong></p><p># general help<br>$ git help</p>
+
+<p># lists sub-commands<br>$ git help -a</p>
+
+<p># lists concept guides<br>$ git help -g </p>
+
+<p># read about a specific sub-command<br>$ git help &lt;command&gt;</p>
+
+<p># read about a specific concept<br>$ git help &lt;concept&gt;</p><br>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

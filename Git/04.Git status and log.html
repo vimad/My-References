@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>030 Command Summary resources git status and git log</title>
+</head>
+<body>
+<div class="asset-container">
+    <div class="asset-container__padding article-view">
+        <div class="w3c-default">
+            <p><strong class="redactor-inline-converted">How to check your repo status
+
+</strong></p><p># cd to /c/Users/HP-PC/git-fast/myRepoFromScratch<br>$ pwd<br>$ ls</p>
+
+<p># start with a clean working directory<br>$ git status                </p>
+
+<p># create file and add some contents such as "I want to shed 15 kg 5 weeks"        <br>$ vi weightLossChart    </p>
+
+<p># create file and add some contents such as "I want to add more green vegetables to my diet"    <br>$ vi dietChart                  <br>$ git status           </p>
+
+<p> # same as "git status" since "long" option is the default one (compare output)    <br>$ git status --long        <br>$ git status -s                                 # status "??" for untracked file<br>$ git add weightLossChart<br>$ git status -s                                 # status "A"<br>$ git commit -m "1st commit for weightLossChart"<br>$ git status -s     <br>$ vi weightLossChart                 # make some changes to the file<br>$ git status -s                              # status "M"<br>$ git add weightLossChart  <br>$ git status -s                                # status "M"<br>$ git commit -m "2nd commit for weightLossChart"<br>$ git status -s   <br>$ mv weightLossChart weightLossChart2<br>$ git status -s                             # status "D"</p>
+
+<p><br></p><p><strong class="redactor-inline-converted">How to check commit history</strong></p>
+
+<p># displays the entire commit history using the default formatting<br>$ git log                </p>
+
+<p># oneline condensed view of each commit history                      <br>$ git log --oneline</p>
+
+<p># Only display commits that include the specified file                             <br>$ git log &lt;file&gt;          </p>
+
+<p># Show only commits that occur between &lt;since&gt; and &lt;until&gt;. Both arguments can be either a commit ID ...contd. <br># a branch, name, HEAD, or any other kind of revision reference.                    <br>$ git log &lt;since&gt;..&lt;until&gt;                     </p>
+
+<p># Limit the number of commits by &lt;limit&gt;. For example, git log -n 3 will display only 3 commits.  <br>$ git log -n &lt;limit&gt;                          </p>
+
+<p><br></p><p><strong>Command Summary - status &amp; log</strong></p>
+
+<p># provides a status report of the repo<br>$ git status             </p>
+
+<p># displays the entire commit history using the default formatting                       <br>$ git log                </p>
+
+<p> # oneline condensed view of each commit history                      <br>$ git log --oneline           </p>
+
+<p># Only display commits that include the specified file                 <br>$ git log &lt;file&gt;     </p>
+
+<p># Show only commits that occur between &lt;since&gt; and &lt;until&gt;. Both arguments can be either a commit ID, a branch<br># name, HEAD, or any other kind of revision reference.                        <br>$ git log &lt;since&gt;..&lt;until&gt;                    </p>
+
+<p># Limit the number of commits by &lt;limit&gt;. For example, git log -n 3 will display only 3 commits. <br>$ git log -n &lt;limit&gt;                         </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

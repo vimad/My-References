@@ -1,0 +1,22 @@
+
+docker create <image name>
+docker start -a <container id> -> -a option is needed to get the output printed in the terminal
+
+docker run <image name> -> dockaer create + docker start
+docker run <image name> <command>
+
+docker ps -> list running containers
+docker ps --all -> list all containers which have startde on the machine
+
+docker system prune -> remove stopped containers (all build cache also remove)
+
+docker log <container id> -> retreving logs of a previously run application
+
+docker stop <container id> -> send SIGTERM signal can handle this signal by application and take neccesary tasks before stoping 
+if the application did not stop with in 10 seconds then automatticall docker kill command triggered
+docker kill <container id> -> send SIGKILL signal shutdown right now
+
+docker exec -it <container id> <command> -> executing commands in running containers
+docker exec -it <container id> sh -> getting a command prompt with in a container
+the flag i is used to redirect output of the application to the terminal
+the flag t is beautify the view

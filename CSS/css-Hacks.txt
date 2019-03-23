@@ -1,0 +1,15 @@
+remove white margins from inline images if occure - vertical-align: top; or make it block
+box-sizing: border-box; - calculate sizes of the boxes upto borders, the default is content-box
+
+positioning
+absolute and fixed - relative to the viewport or closest ancestor that use positionoing
+relative - relative to the current position
+
+margin collapsing - bigger margin wins
+
+if scrollbars occur due to vh vw units
+Add overflow-x: hidden;  to the body selector to hide the horizontal scrollbar (or overflow-y: hidden  to hide the vertical scrollbar)
+Alternatively you could also use the ::-webkit-scrollbar pseudo element.
+body: :-webkit-scrollbar {
+    width: 0
+}

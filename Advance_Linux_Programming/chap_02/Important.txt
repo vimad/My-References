@@ -1,0 +1,42 @@
+********************IMPORTANT*******************************
+************************************************************
+
+********************ARCHIVES(static library)****************
+* collection of object files store as a single file
+* ar cr libtest.a test1.o test2.o (example of creating a archive file libtest.a using test1.o and test2.o)
+* gcc -o app -L. -ltest app.o (this is not correct order of compiling)
+* gcc -o app app.o -L. -ltest (this is the correct order of compiling)
+*************************************************************
+
+********************SHARED LIBRARY***************************
+* the final executable does not actually contain the code that is present in the library
+* executable contains refence to the library and hence many programs share the same library
+* shared library includes all the code instead of taking the required portion
+* gcc -shared -fPIC -o libtest.so test1.o test2.o
+* compiler links shared library version if both shared and static library versions with same name exists
+* the library full path was not included only the name
+* hence it sarches only in /lib and /usr/lib by default
+* one solution - gcc -o app app.o -L. -ltest -Wl,-rpath,/usr/local/lib
+* another solution set LD_LIBRARY_PATH (colon seperated list of directories)
+**************************************************************
+
+*******************LIBRARY DEPENDENCIES***********************
+* shared library can point to other shared libraries that it depends on
+* static libraries can not (hence need to specify all the libraries at compiling)
+**************************************************************
+
+****************DYNAMIC LOADING AND UNLOADING*****************
+* to use dynamic loading include <dlfcn.h> header file and link it with -ldl option to pick up the libdl library
+* dlopen("libtest.so", RTLD_LAZY)
+* the second parameter indicates howto bind symbols in the shared library
+* The dlsym system call can also be used to obtain a pointer to a static variable in the shared library
+* example
+	void* handle = dlopen (“libtest.so”, RTLD_LAZY);
+	void (*test)() = dlsym (handle, “my_function”);
+	(*test)();
+	dlclose (handle);
+* to acces functions using dlsym it is required to declare function like this
+	extern "C" void foo();
+
+
+

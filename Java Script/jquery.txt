@@ -1,0 +1,41 @@
+$(function(){}) - start at beginning
+
+********************Animations****************************************************
+fadeIn(millis)
+fadeOut(millis)
+fadeTo(millis, opacity, function to run after finish) - dose not add display none
+fadeToggle()
+show()
+hide()
+slideUp(millis)
+slideDown(millis)
+slideToggle(millis)
+animate({ here , seperated properties} , time, "linear") - $(".ab").animate({ "margin-left" : "+=200px"} , 1000, "linear")
+delay(millis)
+***animations can chain
+
+********************Element Selectors*********************************************
+css selectors
+$("input[type = 'text']") - jquery version is available as $("input:text") also available for checkbox, radio, password, selected (<select><option>...) but not for email
+
+jquery methods
+find() - finds all
+children() - find direct childs
+parents() - all parents
+parent() - one parent
+siblings() - in same level
+prev() - first item before
+next() - first item after
+first() - firts element
+last() - last element
+eq(index) - indexth item is selecting from all the available items, can give minus indexes which counts from the end
+filter(function to filter or condition like :first)
+not(function to filter or condition like :first) - filter the not
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+********************PROCESS SHEDULING*******************
+* use nice comman to priority to processes
+* positive less priority
+* negetive high priority
+* example
+	nice -n 10 sort input.txt > output.txt
+
+*******************SIGNAL*******************************
+* sig_atomic_t - Linux guarantees that assignments to variables of this type are performed 
+				 in a single instruction and therefore cannot be interrupted midway
+* include <sys/types.h> and <signal.h> headers to use kill function
+* echo $? to obtain the most reson exit code (in shell)

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>053 Command Summary GitHub via SSH</title>
+</head>
+<body>
+<div class="asset-container">
+    <div class="asset-container__padding article-view">
+        <div class="w3c-default">
+            <p><strong class="redactor-inline-converted">Checking existing SSH Keys
+
+</strong></p><p>$ ls -al ~/.ssh         # Lists the files in your .ssh directory, if they exist</p>
+
+<p><br></p><p><strong class="redactor-inline-converted">Generate an SSH Key</strong></p>
+
+<p># Generates public/private rsa key pair with default values - DON'T RUN THIS ONE<br>$ ssh-keygen           </p>
+
+<p> # 't' for type of key, 'b' for length of key, 'C' for comment for maintaining multiple keys                                <br>$ ssh-keygen -t rsa -b 2048 - C "home machine"</p><br>         <br>
+
+<p><strong class="redactor-inline-converted">Enable SSH Agent &amp; add the SSH Key to the agent</strong></p>
+
+<p># start the ssh-agent in the background<br>$ eval "$(ssh-agent -s)"        </p>
+
+<p># Add your SSH key to the ssh-agent    <br>$ ssh-add ~/.ssh/id_rsa.pub           </p>
+
+<p><br></p><p><strong class="redactor-inline-converted">Testing SSH connection</strong></p>
+
+<p># Verify SSH connection; here 'git" is the user name; note that you cannot use your github user name such as 'william'<br>$ ssh -T git@github.com                 </p>
+
+<p># another alternative way to verify if firewall issues are present<br>$ ssh -T -p 443 git@github.com          </p>
+
+<p><br></p><p><strong class="redactor-inline-converted">Remote URL switching and SSH push</strong></p>
+
+<p># List your existing remotes in order to get the name of the remote you want to change<br>$ git remote -v      </p>
+
+<p> # set remote URL<br>$ git git remote set-url origin git@github.com:USERNAME/OTHERREPOSITORY.git       </p>
+
+<p> # Verify new remote URL  <br>$ git remote -v                                </p>
+
+
+
+<p><br></p><p><strong>Changing passphrase</strong></p>
+
+<p># for changing password occasionally<br>$ ssh-keygen -p          </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+File -> Project Structure -> Project Settings
+File -> Project Structure -> Module Settings -> Tab: Sources: Language Level
+File -> Project Structure -> Module Settings -> Tab: Dependencies: Module SDK
+File -> Settings -> Compiler -> Java Compiler -> Target bytecode version
