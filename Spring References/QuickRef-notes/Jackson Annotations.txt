@@ -1,0 +1,51 @@
+@JsonProperty(value = "name") - add different name to response
+
+@JsonProperty(access = Access.READ_ONLY) - make it read only -> available only in responce
+										 - Access.WRITE_ONLY -> available only in request
+
+@JsonIgnore - at field
+@JsonIgnaoreProperties({"","","",...}) - at class
+
+@JsonPropertyOrder({"","",...}) - add the specific order for responces
+
+@JsonRowValue - make a field (eg- string) to jason object in responce
+
+@JsonInclude(value = Include.NON_EMPTY) - include on non null to the responce
+
+@JsonValue - this is used in enums to pass it value rather than type
+
+@JsonEnumDefaultValue - this is use in enum to have default value
+to work this add
+	spring:
+		jackson:
+			deserialization:
+				read-unkown-enum-values-using-default-value: true
+
+if not using spring boot config another option is (Here Major is a enum)
+@JsonCreater
+public static Major fromValue(string value){
+	for(Major type: Major.values()){
+		if(type.value.equals(value)){
+			return type;
+		}
+	}
+	return null;
+}
+Another use case is use this annotation in a constructor 
+@JsonCreater
+public Author(@JsonProperty("myName") String firstNam){
+	this.firstName = firstName;
+}
+
+-------------For customized getters and setters use this, otherwise values will not parse correctly
+@JsonGetter
+@JsonSetter 
+
+---------------For set and get standalone objects rather than whole in the jason response and request (eg - Map)
+@JsonAnyGetter
+@JsonAnySetter
+
+@JsonFormat
+eg:-
+	@JsonFormat(shape = Shape.STRING, pattern = "dd-Mm-yyy hh:mm:ss")
+	private Date startDate;

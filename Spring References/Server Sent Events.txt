@@ -1,0 +1,37 @@
+*****************SERVER SENT EVENT********************
+******CLINT
+var source = new EventSource('/questions')
+
+source.addEventListner('spring', function(event){
+	//do staff
+})
+
+******SERVER
+@RestController
+public class QuestionController{
+	
+	private List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+
+	@RequstMapping("/questions")
+	public SseEmitter questions(){
+		SseEmitter sseEmitter = new SseEmitter();
+
+		emitters.add(sseEmitter);
+
+		emitter.onCompletion(() -> emitters.remove(sseEmitter));
+
+		retrun sseEmitter;
+	}
+	
+
+	@PostMapping("/new-question")
+	public void postQusetion(String question){
+		for(SseEmitter emitter: emitters){
+			try{
+				emitter.send(SseEmitter.event().name('spring').data(question));
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+	}
+}

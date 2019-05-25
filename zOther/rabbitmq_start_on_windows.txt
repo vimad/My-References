@@ -1,0 +1,6 @@
+Run the command prompt as Administrator
+Navigate to the sbin directory and uninstall the service. rabbitmq-service remove
+Reinstall the service rabbitmq-service install
+Enable the plugins. rabbitmq-plugins enable rabbitmq_management
+Start the service rabbitmq-service start
+Go to "http://localhost:15672/"
