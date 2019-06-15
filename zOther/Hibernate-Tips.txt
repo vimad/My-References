@@ -1,0 +1,137 @@
+
+**************************************************************************************************************
+//******************* SHOW SQL *******************************************************************************
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+logging.level.org.hibernate.type=trace
+
+**************************************************************************************************************
+
+
+**************************************************************************************************************
+//******************* @OrderBY *******************************************************************************
+This is used for Order an unorderd collection
+eg:-
+	@ManyToMany
+	.....
+	@OrderBy(value = "lastName ASC")
+	private Set<Autor> authors = new HashSet<>();
+
+**************************************************************************************************************
+
+
+**************************************************************************************************************
+//******************* MAP NATIVE QUERY TO MANAGED ENTITY *****************************************************
+This is used when custom column names used, otherwise this is not needed
+eg:-
+	@Entity
+	@SQLResultSetMapping(
+		name = "BookMapping",
+		entities = @EntityResult(
+			entityClass = Book.class,
+			fields = {
+				@FieldResult(name = "id", column = "id") // name in entity and column in table
+				.....
+			}
+		)
+	)
+	public class Book{}
+
+	Book b = em.createNativeQuery("select * from book where id = 1", "BookMapping").getSingleResult();
+
+**************************************************************************************************************
+
+
+**************************************************************************************************************
+//******************* CUSTOM SEQUENCE GENERATOR **************************************************************
+In thhe pimary key strategy,
+eg:-
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="author_generator")
+	@SequenceGenerator(name="author_generator", sequenceName = "author_seq")
+	private Long id;
+
+**************************************************************************************************************
+
+
+**************************************************************************************************************
+//******************* SELECT MULTIPE SCALAR VALUES IN A CRITERIA QUERY ***************************************
+This is used to get only necesarry things from an entity to a Tuple
+eg:-
+	CriteriaBuilder cb = em.getCriteriaBuilder();
+	CriteriaQuery<Tuple> q = cb.createTupleQuery();
+	Root<Author> author = q.from(Author.class);
+	q.multiSelect(
+		author.get(Author_get(firstName).alias(firstName)),
+		author.get(Author_get(lastName).alias(lastName))
+	); 
+	List<Tuple> authorNames = em.createQuery(q).getResultList();
+
+	for(Tuple authorName : authorNames){
+		sout(authorName.get("firstName"));
+	}
+
+**************************************************************************************************************
+
+
+**************************************************************************************************************
+//******************* CALCULATE ENTITY ATRIBUTE **************************************************************
+This is for fetch entity atribute from caluculations. This field dose not add to the data base
+eg:-
+	@Formula(value = "(select min(s.hra) from salaries s) ") // this value is a native sql query
+	private float total;
+
+Another way is use @Transient annotation to avoid persist to the data base
+
+**************************************************************************************************************
+
+
+**************************************************************************************************************
+//******************* SET QUERY TIMEOUT **********************************************************************
+The data base should support query timeouts
+eg:-
+	List<Author> authors = em.createQuery("...")
+							.setHint("javax.persistence.query.timeout", 1000)
+							.getResultList();
+
+	    OR
+
+	HashMap<String, Object> hints = new HashMap<>();
+	hints.put("javax.persistence.query.timeout", 1000);
+	em.find(Author.class, 1L, hints);
+
+**************************************************************************************************************
+
+
+**************************************************************************************************************
+//******************* ACCESS HIBERNATE SESSION FROM JPA ******************************************************
+Get session from entity manger
+	Session session = em.unwrap(Session.class);
+
+Get Session factory from entity manager
+	SessionFactory sessionFactory = em.getEntityManagerFactory.unwrap(SessionFactory.class);	
+
+**************************************************************************************************************
+
+
+**************************************************************************************************************
+//******************* PAGINATION IN JPQL *********************************************************************
+limit is not supported by jpql
+
+	List<Author> authors = em.createQuery("select a from Author a")
+							 .setMaxResults(5)
+							 .setFirstResult(0)
+							 .getResultSet();		
+
+**************************************************************************************************************
+
+
+**************************************************************************************************************
+//******************* MAP DATABASE COLUMNS WITH GENERATED VALUES *********************************************
+@Generated(GenerationTime value)
+GenerationTime enum :- NEVER, INSERT, ALWAYS
+eg:-
+	@Generated(GenerationTime.ALWAYS)
+	private LocalDateTime lastUpdate;		
+
+**************************************************************************************************************
